@@ -4,7 +4,7 @@ This chip is a minimal **active inference agent** rendered directly in silicon.
 Active inference is a framework from computational neuroscience in which an
 agent acts to minimise "surprise" — the mismatch between what it predicts and
 what it senses. It does this two ways: by updating its beliefs (perception) and
-by acting on the world (action). 
+by acting on the world (action).  
 
 The agent here lives on a 3-position line (LEFT / CENTER / RIGHT). One position
 hides a reward. The agent does not know which. Each clock step it runs three
