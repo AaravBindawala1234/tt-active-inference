@@ -1,38 +1,28 @@
-# Tiny Tapeout project information
 project:
-  title:        "Active Inference Agent"
+  title:        "Active Inference Agent v3"
   author:       "Aarav"
   discord:      ""
-  description:  "A minimal active inference agent: Bayesian belief update plus expected-free-energy planning over a 3-state POMDP, in 8-bit log-domain fixed point."
-  language:     "Verilog"      # generated from Amaranth HDL
+  description:  "A 3-state active inference agent: Bayesian belief update + expected-free-energy planning, in 8-bit log-domain fixed point. Adds runtime-switchable goal, precision control, and full belief readout."
+  language:     "Verilog"
   clock_hz:     25000000
-
-  # How many tiles your design occupies. 1x1 is the smallest.
   tiles:        "1x1"
-
-  # The top module name MUST start with "tt_um_" and be unique.
   top_module:   "tt_um_active_inference"
-
-  # Source files, relative to the src/ folder.
   source_files:
     - "project.v"
     - "active_inference_core.v"
 
-# The pinout. Describe what each used pin does.
 pinout:
-  # Inputs
   ui[0]: "observation bit 0"
   ui[1]: "observation bit 1"
-  ui[2]: "tick (pulse high one cycle to run an inference step)"
-  ui[3]: ""
-  ui[4]: ""
-  ui[5]: ""
-  ui[6]: ""
-  ui[7]: ""
+  ui[2]: "tick (pulse to run one inference step)"
+  ui[3]: "gamma bit 0 (precision / decisiveness)"
+  ui[4]: "gamma bit 1"
+  ui[5]: "bsel bit 0 (belief readout select)"
+  ui[6]: "bsel bit 1"
+  ui[7]: "csel (goal select: 0=seek RIGHT, 1=seek LEFT)"
 
-  # Outputs
   uo[0]: "action bit 0"
-  uo[1]: "action bit 1 (action: 0=move LEFT, 1=stay, 2=move RIGHT)"
+  uo[1]: "action bit 1 (0=move LEFT, 1=stay, 2=move RIGHT)"
   uo[2]: "ready (decision valid)"
   uo[3]: ""
   uo[4]: ""
@@ -40,15 +30,13 @@ pinout:
   uo[6]: ""
   uo[7]: ""
 
-  # Bidirectional pins (all used as outputs here: belief debug byte)
-  uio[0]: "belief[LEFT] debug bit 0"
-  uio[1]: "belief[LEFT] debug bit 1"
-  uio[2]: "belief[LEFT] debug bit 2"
-  uio[3]: "belief[LEFT] debug bit 3"
-  uio[4]: "belief[LEFT] debug bit 4"
-  uio[5]: "belief[LEFT] debug bit 5"
-  uio[6]: "belief[LEFT] debug bit 6"
-  uio[7]: "belief[LEFT] debug bit 7"
+  uio[0]: "selected belief value bit 0 (which state set by bsel)"
+  uio[1]: "selected belief value bit 1"
+  uio[2]: "selected belief value bit 2"
+  uio[3]: "selected belief value bit 3"
+  uio[4]: "selected belief value bit 4"
+  uio[5]: "selected belief value bit 5"
+  uio[6]: "selected belief value bit 6"
+  uio[7]: "selected belief value bit 7"
 
-# Do not change!
 yaml_version: 6
