@@ -8,7 +8,7 @@ by acting on the world (action).
 
 The agent here lives on a 3-position line (LEFT / CENTER / RIGHT). One position
 hides a reward. The agent does not know which. Each clock step it runs three
-operations:
+operations: 
 
 1. **Perceive.** It reads a 2-bit observation and performs a Bayesian belief
    update. Because all probabilities are stored as logarithms, the update is a
