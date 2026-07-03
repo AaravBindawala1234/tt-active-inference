@@ -4,6 +4,11 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   reg \$auto$verilog_backend.cc:2355:dump_module$1  = 0;
   wire \$1 ;
   wire \$10 ;
+  reg [7:0] \$100 ;
+  reg [7:0] \$101 ;
+  reg [7:0] \$102 ;
+  reg [1:0] \$103 ;
+  reg \$104 ;
   wire [8:0] \$11 ;
   wire \$12 ;
   wire [8:0] \$13 ;
@@ -87,19 +92,20 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   wire \$84 ;
   wire \$85 ;
   wire [10:0] \$86 ;
-  wire [14:0] \$87 ;
-  wire [10:0] \$88 ;
-  wire [14:0] \$89 ;
+  wire [13:0] \$87 ;
+  wire [14:0] \$88 ;
+  wire [15:0] \$89 ;
   wire [8:0] \$9 ;
   wire [10:0] \$90 ;
-  wire [14:0] \$91 ;
-  wire \$92 ;
-  wire \$93 ;
-  reg [7:0] \$94 ;
-  reg [7:0] \$95 ;
-  reg [7:0] \$96 ;
-  reg [1:0] \$97 ;
-  reg \$98 ;
+  wire [13:0] \$91 ;
+  wire [14:0] \$92 ;
+  wire [15:0] \$93 ;
+  wire [10:0] \$94 ;
+  wire [13:0] \$95 ;
+  wire [14:0] \$96 ;
+  wire [15:0] \$97 ;
+  wire \$98 ;
+  wire \$99 ;
   reg [7:0] C0;
   reg [7:0] C1;
   reg [7:0] C2;
@@ -110,8 +116,8 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   reg [7:0] belief2 = 8'h00;
   output [7:0] belief_dbg;
   reg [7:0] belief_dbg;
-  reg [13:0] best01;
-  reg [13:0] bestf;
+  reg [14:0] best01;
+  reg [14:0] bestf;
   input [1:0] bsel;
   wire [1:0] bsel;
   reg [1:0] ch01;
@@ -142,9 +148,9 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   wire [9:0] sc_0;
   wire [9:0] sc_1;
   wire [9:0] sc_2;
-  wire [13:0] sh_0;
-  wire [13:0] sh_1;
-  wire [13:0] sh_2;
+  reg [14:0] sh_0;
+  reg [14:0] sh_1;
+  reg [14:0] sh_2;
   reg [9:0] smin;
   reg [9:0] smin01;
   reg [7:0] t_0_0;
@@ -161,6 +167,7 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   reg [7:0] upd0;
   reg [7:0] upd1;
   reg [7:0] upd2;
+  assign \$1  = ! csel;
   assign \$2  = ! csel;
   assign \$3  = ! csel;
   assign \$4  = $signed(belief0) + $signed(ev0);
@@ -249,24 +256,29 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   assign \$84  = $signed(sc_1) < $signed(sc_0);
   assign \$85  = $signed(sc_2) < $signed(smin01);
   assign \$86  = $signed(sc_0) - $signed(smin);
-  assign \$87  = $signed(\$86 ) << gamma;
-  assign \$88  = $signed(sc_1) - $signed(smin);
-  assign \$89  = $signed(\$88 ) << gamma;
-  assign \$90  = $signed(sc_2) - $signed(smin);
-  assign \$91  = $signed(\$90 ) << gamma;
-  assign \$92  = $signed(\$89 [13:0]) > $signed(\$87 [13:0]);
-  assign \$93  = $signed(\$91 [13:0]) > $signed(best01);
+  assign \$87  = { \$86 [10], \$86  } * 2'h2;
+  assign \$88  = { \$86 [10], \$86  } * 3'h4;
+  assign \$89  = { \$86 [10], \$86  } * 4'h8;
+  assign \$90  = $signed(sc_1) - $signed(smin);
+  assign \$91  = { \$90 [10], \$90  } * 2'h2;
+  assign \$92  = { \$90 [10], \$90  } * 3'h4;
+  assign \$93  = { \$90 [10], \$90  } * 4'h8;
+  assign \$94  = $signed(sc_2) - $signed(smin);
+  assign \$95  = { \$94 [10], \$94  } * 2'h2;
+  assign \$96  = { \$94 [10], \$94  } * 3'h4;
+  assign \$97  = { \$94 [10], \$94  } * 4'h8;
+  assign \$98  = sh_1 > sh_0;
+  assign \$99  = sh_2 > best01;
   always @(posedge clk)
-    belief0 <= \$94 ;
+    belief0 <= \$100 ;
   always @(posedge clk)
-    belief1 <= \$95 ;
+    belief1 <= \$101 ;
   always @(posedge clk)
-    belief2 <= \$96 ;
+    belief2 <= \$102 ;
   always @(posedge clk)
-    action <= \$97 ;
+    action <= \$103 ;
   always @(posedge clk)
-    ready <= \$98 ;
-  assign \$1  = ! csel;
+    ready <= \$104 ;
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
@@ -540,7 +552,49 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$92 ) begin
+    casez (gamma)
+      2'h0:
+          sh_0 = { 3'h0, \$86 [10], \$86  };
+      2'h1:
+          sh_0 = { 1'h0, \$87  };
+      2'h2:
+          sh_0 = \$88 ;
+      2'h3:
+          sh_0 = \$89 [14:0];
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
+    (* full_case = 32'd1 *)
+    casez (gamma)
+      2'h0:
+          sh_1 = { 3'h0, \$90 [10], \$90  };
+      2'h1:
+          sh_1 = { 1'h0, \$91  };
+      2'h2:
+          sh_1 = \$92 ;
+      2'h3:
+          sh_1 = \$93 [14:0];
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
+    (* full_case = 32'd1 *)
+    casez (gamma)
+      2'h0:
+          sh_2 = { 3'h0, \$94 [10], \$94  };
+      2'h1:
+          sh_2 = { 1'h0, \$95  };
+      2'h2:
+          sh_2 = \$96 ;
+      2'h3:
+          sh_2 = \$97 [14:0];
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
+    (* full_case = 32'd1 *)
+    if (\$98 ) begin
       ch01 = 2'h1;
     end else begin
       ch01 = 2'h0;
@@ -549,16 +603,16 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$92 ) begin
-      best01 = \$89 [13:0];
+    if (\$98 ) begin
+      best01 = sh_1;
     end else begin
-      best01 = \$87 [13:0];
+      best01 = sh_0;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$93 ) begin
+    if (\$99 ) begin
       chosen = 2'h2;
     end else begin
       chosen = ch01;
@@ -567,8 +621,8 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$93 ) begin
-      bestf = \$91 [13:0];
+    if (\$99 ) begin
+      bestf = sh_2;
     end else begin
       bestf = best01;
     end
@@ -589,60 +643,57 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$94  = belief0;
+    \$100  = belief0;
     if (tick) begin
-      \$94  = nb0;
+      \$100  = nb0;
     end
     if (rst) begin
-      \$94  = 8'h00;
+      \$100  = 8'h00;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$95  = belief1;
+    \$101  = belief1;
     if (tick) begin
-      \$95  = nb1;
+      \$101  = nb1;
     end
     if (rst) begin
-      \$95  = 8'h00;
+      \$101  = 8'h00;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$96  = belief2;
+    \$102  = belief2;
     if (tick) begin
-      \$96  = nb2;
+      \$102  = nb2;
     end
     if (rst) begin
-      \$96  = 8'h00;
+      \$102  = 8'h00;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$97  = action;
+    \$103  = action;
     if (tick) begin
-      \$97  = chosen;
+      \$103  = chosen;
     end
     if (rst) begin
-      \$97  = 2'h0;
+      \$103  = 2'h0;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
     if (tick) begin
-      \$98  = 1'h1;
+      \$104  = 1'h1;
     end else begin
-      \$98  = 1'h0;
+      \$104  = 1'h0;
     end
     if (rst) begin
-      \$98  = 1'h0;
+      \$104  = 1'h0;
     end
   end
   assign d_0 = { \$86 [10], \$86  };
-  assign sh_0 = \$87 [13:0];
-  assign d_1 = { \$88 [10], \$88  };
-  assign sh_1 = \$89 [13:0];
-  assign d_2 = { \$90 [10], \$90  };
-  assign sh_2 = \$91 [13:0];
+  assign d_1 = { \$90 [10], \$90  };
+  assign d_2 = { \$94 [10], \$94  };
 endmodule
