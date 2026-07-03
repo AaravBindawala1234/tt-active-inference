@@ -3,112 +3,113 @@
 module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, belief_dbg, obs);
   reg \$auto$verilog_backend.cc:2355:dump_module$1  = 0;
   wire \$1 ;
-  wire \$10 ;
-  reg [7:0] \$100 ;
+  wire [8:0] \$10 ;
+  wire \$100 ;
   reg [7:0] \$101 ;
   reg [7:0] \$102 ;
-  reg [1:0] \$103 ;
-  reg \$104 ;
-  wire [8:0] \$11 ;
-  wire \$12 ;
-  wire [8:0] \$13 ;
+  reg [7:0] \$103 ;
+  reg [1:0] \$104 ;
+  reg \$105 ;
+  wire \$11 ;
+  wire [8:0] \$12 ;
+  wire \$13 ;
   wire [8:0] \$14 ;
-  wire \$15 ;
-  wire [8:0] \$16 ;
-  wire \$17 ;
-  wire [8:0] \$18 ;
-  wire \$19 ;
+  wire [8:0] \$15 ;
+  wire \$16 ;
+  wire [8:0] \$17 ;
+  wire \$18 ;
+  wire [8:0] \$19 ;
   wire \$2 ;
   wire \$20 ;
-  wire [8:0] \$21 ;
-  wire \$22 ;
-  wire [8:0] \$23 ;
-  wire \$24 ;
-  wire [8:0] \$25 ;
+  wire \$21 ;
+  wire [8:0] \$22 ;
+  wire \$23 ;
+  wire [8:0] \$24 ;
+  wire \$25 ;
   wire [8:0] \$26 ;
-  wire \$27 ;
-  wire [8:0] \$28 ;
-  wire \$29 ;
-  wire \$3 ;
-  wire [8:0] \$30 ;
+  wire [8:0] \$27 ;
+  wire \$28 ;
+  wire [8:0] \$29 ;
+  wire [6:0] \$3 ;
+  wire \$30 ;
   wire [8:0] \$31 ;
-  wire \$32 ;
-  wire [8:0] \$33 ;
-  wire \$34 ;
-  wire [8:0] \$35 ;
+  wire [8:0] \$32 ;
+  wire \$33 ;
+  wire [8:0] \$34 ;
+  wire \$35 ;
   wire [8:0] \$36 ;
-  wire \$37 ;
-  wire [8:0] \$38 ;
-  wire \$39 ;
-  wire [8:0] \$4 ;
-  wire [8:0] \$40 ;
+  wire [8:0] \$37 ;
+  wire \$38 ;
+  wire [8:0] \$39 ;
+  wire \$4 ;
+  wire \$40 ;
   wire [8:0] \$41 ;
-  wire \$42 ;
-  wire [8:0] \$43 ;
-  wire \$44 ;
-  wire [8:0] \$45 ;
+  wire [8:0] \$42 ;
+  wire \$43 ;
+  wire [8:0] \$44 ;
+  wire \$45 ;
   wire [8:0] \$46 ;
-  wire \$47 ;
-  wire [8:0] \$48 ;
-  wire \$49 ;
-  wire \$5 ;
-  wire [8:0] \$50 ;
+  wire [8:0] \$47 ;
+  wire \$48 ;
+  wire [8:0] \$49 ;
+  wire [8:0] \$5 ;
+  wire \$50 ;
   wire [8:0] \$51 ;
   wire [8:0] \$52 ;
-  wire \$53 ;
-  wire [8:0] \$54 ;
-  wire \$55 ;
-  wire [8:0] \$56 ;
+  wire [8:0] \$53 ;
+  wire \$54 ;
+  wire [8:0] \$55 ;
+  wire \$56 ;
   wire [8:0] \$57 ;
-  wire \$58 ;
-  wire [8:0] \$59 ;
-  wire [8:0] \$6 ;
-  wire \$60 ;
-  wire [8:0] \$61 ;
+  wire [8:0] \$58 ;
+  wire \$59 ;
+  wire \$6 ;
+  wire [8:0] \$60 ;
+  wire \$61 ;
   wire [8:0] \$62 ;
-  wire \$63 ;
-  wire [8:0] \$64 ;
-  wire \$65 ;
-  wire [8:0] \$66 ;
+  wire [8:0] \$63 ;
+  wire \$64 ;
+  wire [8:0] \$65 ;
+  wire \$66 ;
   wire [8:0] \$67 ;
   wire [8:0] \$68 ;
-  wire \$69 ;
-  wire \$7 ;
-  wire [8:0] \$70 ;
-  wire \$71 ;
-  wire [8:0] \$72 ;
+  wire [8:0] \$69 ;
+  wire [8:0] \$7 ;
+  wire \$70 ;
+  wire [8:0] \$71 ;
+  wire \$72 ;
   wire [8:0] \$73 ;
-  wire \$74 ;
-  wire [8:0] \$75 ;
-  wire \$76 ;
-  wire [8:0] \$77 ;
+  wire [8:0] \$74 ;
+  wire \$75 ;
+  wire [8:0] \$76 ;
+  wire \$77 ;
   wire [8:0] \$78 ;
-  wire \$79 ;
-  wire [8:0] \$8 ;
-  wire [8:0] \$80 ;
-  wire \$81 ;
-  wire [8:0] \$82 ;
+  wire [8:0] \$79 ;
+  wire \$8 ;
+  wire \$80 ;
+  wire [8:0] \$81 ;
+  wire \$82 ;
   wire [8:0] \$83 ;
-  wire \$84 ;
+  wire [8:0] \$84 ;
   wire \$85 ;
-  wire [10:0] \$86 ;
-  wire [13:0] \$87 ;
-  wire [14:0] \$88 ;
-  wire [15:0] \$89 ;
+  wire \$86 ;
+  wire [10:0] \$87 ;
+  wire [13:0] \$88 ;
+  wire [14:0] \$89 ;
   wire [8:0] \$9 ;
-  wire [10:0] \$90 ;
-  wire [13:0] \$91 ;
-  wire [14:0] \$92 ;
-  wire [15:0] \$93 ;
-  wire [10:0] \$94 ;
-  wire [13:0] \$95 ;
-  wire [14:0] \$96 ;
-  wire [15:0] \$97 ;
-  wire \$98 ;
+  wire [15:0] \$90 ;
+  wire [10:0] \$91 ;
+  wire [13:0] \$92 ;
+  wire [14:0] \$93 ;
+  wire [15:0] \$94 ;
+  wire [10:0] \$95 ;
+  wire [13:0] \$96 ;
+  wire [14:0] \$97 ;
+  wire [15:0] \$98 ;
   wire \$99 ;
-  reg [7:0] C0;
-  reg [7:0] C1;
-  reg [7:0] C2;
+  wire [7:0] C0;
+  wire [7:0] C1;
+  wire [7:0] C2;
   output [1:0] action;
   reg [1:0] action = 2'h0;
   reg [7:0] belief0 = 8'h00;
@@ -168,144 +169,119 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   reg [7:0] upd1;
   reg [7:0] upd2;
   assign \$1  = ! csel;
+  assign C0 = csel ? 8'hf5 : 8'hb6;
   assign \$2  = ! csel;
-  assign \$3  = ! csel;
-  assign \$4  = $signed(belief0) + $signed(ev0);
-  assign \$5  = $signed(\$4 ) > $signed(8'h7f);
-  assign \$6  = $signed(belief0) + $signed(ev0);
-  assign \$7  = $signed(\$6 ) < $signed(8'h80);
-  assign \$8  = $signed(belief0) + $signed(ev0);
-  assign \$9  = $signed(belief1) + $signed(ev1);
-  assign \$10  = $signed(\$9 ) > $signed(8'h7f);
-  assign \$11  = $signed(belief1) + $signed(ev1);
-  assign \$12  = $signed(\$11 ) < $signed(8'h80);
-  assign \$13  = $signed(belief1) + $signed(ev1);
-  assign \$14  = $signed(belief2) + $signed(ev2);
-  assign \$15  = $signed(\$14 ) > $signed(8'h7f);
-  assign \$16  = $signed(belief2) + $signed(ev2);
-  assign \$17  = $signed(\$16 ) < $signed(8'h80);
-  assign \$18  = $signed(belief2) + $signed(ev2);
-  assign \$19  = $signed(upd1) > $signed(upd0);
-  assign \$20  = $signed(upd2) > $signed(mx01);
-  assign \$21  = $signed(upd0) - $signed(mxall);
-  assign \$22  = $signed(\$21 ) > $signed(8'h7f);
-  assign \$23  = $signed(upd0) - $signed(mxall);
-  assign \$24  = $signed(\$23 ) < $signed(8'h80);
-  assign \$25  = $signed(upd0) - $signed(mxall);
-  assign \$26  = $signed(upd1) - $signed(mxall);
-  assign \$27  = $signed(\$26 ) > $signed(8'h7f);
-  assign \$28  = $signed(upd1) - $signed(mxall);
-  assign \$29  = $signed(\$28 ) < $signed(8'h80);
-  assign \$30  = $signed(upd1) - $signed(mxall);
-  assign \$31  = $signed(upd2) - $signed(mxall);
-  assign \$32  = $signed(\$31 ) > $signed(8'h7f);
-  assign \$33  = $signed(upd2) - $signed(mxall);
-  assign \$34  = $signed(\$33 ) < $signed(8'h80);
-  assign \$35  = $signed(upd2) - $signed(mxall);
-  assign \$36  = $signed(nb0) + $signed(C0);
-  assign \$37  = $signed(\$36 ) > $signed(8'h7f);
-  assign \$38  = $signed(nb0) + $signed(C0);
-  assign \$39  = $signed(\$38 ) < $signed(8'h80);
-  assign \$40  = $signed(nb0) + $signed(C0);
-  assign \$41  = $signed(nb1) + $signed(C0);
-  assign \$42  = $signed(\$41 ) > $signed(8'h7f);
-  assign \$43  = $signed(nb1) + $signed(C0);
-  assign \$44  = $signed(\$43 ) < $signed(8'h80);
-  assign \$45  = $signed(nb1) + $signed(C0);
-  assign \$46  = $signed(nb2) + $signed(C1);
-  assign \$47  = $signed(\$46 ) > $signed(8'h7f);
-  assign \$48  = $signed(nb2) + $signed(C1);
-  assign \$49  = $signed(\$48 ) < $signed(8'h80);
-  assign \$50  = $signed(nb2) + $signed(C1);
-  assign \$51  = $signed(t_0_0) + $signed(t_0_1);
-  assign sc_0 = $signed(\$51 ) + $signed(t_0_2);
-  assign \$52  = $signed(nb0) + $signed(C0);
-  assign \$53  = $signed(\$52 ) > $signed(8'h7f);
-  assign \$54  = $signed(nb0) + $signed(C0);
-  assign \$55  = $signed(\$54 ) < $signed(8'h80);
-  assign \$56  = $signed(nb0) + $signed(C0);
-  assign \$57  = $signed(nb1) + $signed(C1);
-  assign \$58  = $signed(\$57 ) > $signed(8'h7f);
-  assign \$59  = $signed(nb1) + $signed(C1);
-  assign \$60  = $signed(\$59 ) < $signed(8'h80);
-  assign \$61  = $signed(nb1) + $signed(C1);
-  assign \$62  = $signed(nb2) + $signed(C2);
-  assign \$63  = $signed(\$62 ) > $signed(8'h7f);
-  assign \$64  = $signed(nb2) + $signed(C2);
-  assign \$65  = $signed(\$64 ) < $signed(8'h80);
-  assign \$66  = $signed(nb2) + $signed(C2);
-  assign \$67  = $signed(t_1_0) + $signed(t_1_1);
-  assign sc_1 = $signed(\$67 ) + $signed(t_1_2);
-  assign \$68  = $signed(nb0) + $signed(C1);
-  assign \$69  = $signed(\$68 ) > $signed(8'h7f);
-  assign \$70  = $signed(nb0) + $signed(C1);
-  assign \$71  = $signed(\$70 ) < $signed(8'h80);
-  assign \$72  = $signed(nb0) + $signed(C1);
-  assign \$73  = $signed(nb1) + $signed(C2);
-  assign \$74  = $signed(\$73 ) > $signed(8'h7f);
-  assign \$75  = $signed(nb1) + $signed(C2);
-  assign \$76  = $signed(\$75 ) < $signed(8'h80);
-  assign \$77  = $signed(nb1) + $signed(C2);
-  assign \$78  = $signed(nb2) + $signed(C2);
-  assign \$79  = $signed(\$78 ) > $signed(8'h7f);
-  assign \$80  = $signed(nb2) + $signed(C2);
-  assign \$81  = $signed(\$80 ) < $signed(8'h80);
-  assign \$82  = $signed(nb2) + $signed(C2);
-  assign \$83  = $signed(t_2_0) + $signed(t_2_1);
-  assign sc_2 = $signed(\$83 ) + $signed(t_2_2);
-  assign \$84  = $signed(sc_1) < $signed(sc_0);
-  assign \$85  = $signed(sc_2) < $signed(smin01);
-  assign \$86  = $signed(sc_0) - $signed(smin);
-  assign \$87  = { \$86 [10], \$86  } * 2'h2;
-  assign \$88  = { \$86 [10], \$86  } * 3'h4;
-  assign \$89  = { \$86 [10], \$86  } * 4'h8;
-  assign \$90  = $signed(sc_1) - $signed(smin);
-  assign \$91  = { \$90 [10], \$90  } * 2'h2;
-  assign \$92  = { \$90 [10], \$90  } * 3'h4;
-  assign \$93  = { \$90 [10], \$90  } * 4'h8;
-  assign \$94  = $signed(sc_2) - $signed(smin);
-  assign \$95  = { \$94 [10], \$94  } * 2'h2;
-  assign \$96  = { \$94 [10], \$94  } * 3'h4;
-  assign \$97  = { \$94 [10], \$94  } * 4'h8;
-  assign \$98  = sh_1 > sh_0;
-  assign \$99  = sh_2 > best01;
+  assign \$4  = ! csel;
+  assign C2 = csel ? 8'hb6 : 8'hf5;
+  assign \$5  = $signed(belief0) + $signed(ev0);
+  assign \$6  = $signed(\$5 ) > $signed(8'h7f);
+  assign \$7  = $signed(belief0) + $signed(ev0);
+  assign \$8  = $signed(\$7 ) < $signed(8'h80);
+  assign \$9  = $signed(belief0) + $signed(ev0);
+  assign \$10  = $signed(belief1) + $signed(ev1);
+  assign \$11  = $signed(\$10 ) > $signed(8'h7f);
+  assign \$12  = $signed(belief1) + $signed(ev1);
+  assign \$13  = $signed(\$12 ) < $signed(8'h80);
+  assign \$14  = $signed(belief1) + $signed(ev1);
+  assign \$15  = $signed(belief2) + $signed(ev2);
+  assign \$16  = $signed(\$15 ) > $signed(8'h7f);
+  assign \$17  = $signed(belief2) + $signed(ev2);
+  assign \$18  = $signed(\$17 ) < $signed(8'h80);
+  assign \$19  = $signed(belief2) + $signed(ev2);
+  assign \$20  = $signed(upd1) > $signed(upd0);
+  assign \$21  = $signed(upd2) > $signed(mx01);
+  assign \$22  = $signed(upd0) - $signed(mxall);
+  assign \$23  = $signed(\$22 ) > $signed(8'h7f);
+  assign \$24  = $signed(upd0) - $signed(mxall);
+  assign \$25  = $signed(\$24 ) < $signed(8'h80);
+  assign \$26  = $signed(upd0) - $signed(mxall);
+  assign \$27  = $signed(upd1) - $signed(mxall);
+  assign \$28  = $signed(\$27 ) > $signed(8'h7f);
+  assign \$29  = $signed(upd1) - $signed(mxall);
+  assign \$30  = $signed(\$29 ) < $signed(8'h80);
+  assign \$31  = $signed(upd1) - $signed(mxall);
+  assign \$32  = $signed(upd2) - $signed(mxall);
+  assign \$33  = $signed(\$32 ) > $signed(8'h7f);
+  assign \$34  = $signed(upd2) - $signed(mxall);
+  assign \$35  = $signed(\$34 ) < $signed(8'h80);
+  assign \$36  = $signed(upd2) - $signed(mxall);
+  assign \$37  = $signed(nb0) + $signed(C0);
+  assign \$38  = $signed(\$37 ) > $signed(8'h7f);
+  assign \$39  = $signed(nb0) + $signed(C0);
+  assign \$40  = $signed(\$39 ) < $signed(8'h80);
+  assign \$41  = $signed(nb0) + $signed(C0);
+  assign \$42  = $signed(nb1) + $signed(C0);
+  assign \$43  = $signed(\$42 ) > $signed(8'h7f);
+  assign \$44  = $signed(nb1) + $signed(C0);
+  assign \$45  = $signed(\$44 ) < $signed(8'h80);
+  assign \$46  = $signed(nb1) + $signed(C0);
+  assign \$47  = $signed(nb2) + $signed(7'h4c);
+  assign \$48  = $signed(\$47 ) > $signed(8'h7f);
+  assign \$49  = $signed(nb2) + $signed(7'h4c);
+  assign \$50  = $signed(\$49 ) < $signed(8'h80);
+  assign \$51  = $signed(nb2) + $signed(7'h4c);
+  assign \$52  = $signed(t_0_0) + $signed(t_0_1);
+  assign sc_0 = $signed(\$52 ) + $signed(t_0_2);
+  assign \$53  = $signed(nb0) + $signed(C0);
+  assign \$54  = $signed(\$53 ) > $signed(8'h7f);
+  assign \$55  = $signed(nb0) + $signed(C0);
+  assign \$56  = $signed(\$55 ) < $signed(8'h80);
+  assign \$57  = $signed(nb0) + $signed(C0);
+  assign \$58  = $signed(nb1) + $signed(7'h4c);
+  assign \$59  = $signed(\$58 ) > $signed(8'h7f);
+  assign \$60  = $signed(nb1) + $signed(7'h4c);
+  assign \$61  = $signed(\$60 ) < $signed(8'h80);
+  assign \$62  = $signed(nb1) + $signed(7'h4c);
+  assign \$63  = $signed(nb2) + $signed(C2);
+  assign \$64  = $signed(\$63 ) > $signed(8'h7f);
+  assign \$65  = $signed(nb2) + $signed(C2);
+  assign \$66  = $signed(\$65 ) < $signed(8'h80);
+  assign \$67  = $signed(nb2) + $signed(C2);
+  assign \$68  = $signed(t_1_0) + $signed(t_1_1);
+  assign sc_1 = $signed(\$68 ) + $signed(t_1_2);
+  assign \$69  = $signed(nb0) + $signed(7'h4c);
+  assign \$70  = $signed(\$69 ) > $signed(8'h7f);
+  assign \$71  = $signed(nb0) + $signed(7'h4c);
+  assign \$72  = $signed(\$71 ) < $signed(8'h80);
+  assign \$73  = $signed(nb0) + $signed(7'h4c);
+  assign \$74  = $signed(nb1) + $signed(C2);
+  assign \$75  = $signed(\$74 ) > $signed(8'h7f);
+  assign \$76  = $signed(nb1) + $signed(C2);
+  assign \$77  = $signed(\$76 ) < $signed(8'h80);
+  assign \$78  = $signed(nb1) + $signed(C2);
+  assign \$79  = $signed(nb2) + $signed(C2);
+  assign \$80  = $signed(\$79 ) > $signed(8'h7f);
+  assign \$81  = $signed(nb2) + $signed(C2);
+  assign \$82  = $signed(\$81 ) < $signed(8'h80);
+  assign \$83  = $signed(nb2) + $signed(C2);
+  assign \$84  = $signed(t_2_0) + $signed(t_2_1);
+  assign sc_2 = $signed(\$84 ) + $signed(t_2_2);
+  assign \$85  = $signed(sc_1) < $signed(sc_0);
+  assign \$86  = $signed(sc_2) < $signed(smin01);
+  assign \$87  = $signed(sc_0) - $signed(smin);
+  assign \$88  = { \$87 [10], \$87  } * 2'h2;
+  assign \$89  = { \$87 [10], \$87  } * 3'h4;
+  assign \$90  = { \$87 [10], \$87  } * 4'h8;
+  assign \$91  = $signed(sc_1) - $signed(smin);
+  assign \$92  = { \$91 [10], \$91  } * 2'h2;
+  assign \$93  = { \$91 [10], \$91  } * 3'h4;
+  assign \$94  = { \$91 [10], \$91  } * 4'h8;
+  assign \$95  = $signed(sc_2) - $signed(smin);
+  assign \$96  = { \$95 [10], \$95  } * 2'h2;
+  assign \$97  = { \$95 [10], \$95  } * 3'h4;
+  assign \$98  = { \$95 [10], \$95  } * 4'h8;
+  assign \$99  = sh_1 > sh_0;
+  assign \$100  = sh_2 > best01;
   always @(posedge clk)
-    belief0 <= \$100 ;
+    belief0 <= \$101 ;
   always @(posedge clk)
-    belief1 <= \$101 ;
+    belief1 <= \$102 ;
   always @(posedge clk)
-    belief2 <= \$102 ;
+    belief2 <= \$103 ;
   always @(posedge clk)
-    action <= \$103 ;
+    action <= \$104 ;
   always @(posedge clk)
-    ready <= \$104 ;
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    (* full_case = 32'd1 *)
-    if (\$1 ) begin
-      C0 = 8'hb6;
-    end else begin
-      C0 = 8'hf5;
-    end
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    (* full_case = 32'd1 *)
-    if (\$2 ) begin
-      C1 = 8'hcc;
-    end else begin
-      C1 = 8'hcc;
-    end
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    (* full_case = 32'd1 *)
-    if (\$3 ) begin
-      C2 = 8'hf5;
-    end else begin
-      C2 = 8'hb6;
-    end
-  end
+    ready <= \$105 ;
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
@@ -351,40 +327,40 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$5 ) begin
+    if (\$6 ) begin
       upd0 = 8'h7f;
-    end else if (\$7 ) begin
+    end else if (\$8 ) begin
       upd0 = 8'h80;
     end else begin
-      upd0 = \$8 [7:0];
+      upd0 = \$9 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$10 ) begin
+    if (\$11 ) begin
       upd1 = 8'h7f;
-    end else if (\$12 ) begin
+    end else if (\$13 ) begin
       upd1 = 8'h80;
     end else begin
-      upd1 = \$13 [7:0];
+      upd1 = \$14 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$15 ) begin
+    if (\$16 ) begin
       upd2 = 8'h7f;
-    end else if (\$17 ) begin
+    end else if (\$18 ) begin
       upd2 = 8'h80;
     end else begin
-      upd2 = \$18 [7:0];
+      upd2 = \$19 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$19 ) begin
+    if (\$20 ) begin
       mx01 = upd1;
     end else begin
       mx01 = upd0;
@@ -393,7 +369,7 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$20 ) begin
+    if (\$21 ) begin
       mxall = upd2;
     end else begin
       mxall = mx01;
@@ -402,139 +378,139 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$22 ) begin
+    if (\$23 ) begin
       nb0 = 8'h7f;
-    end else if (\$24 ) begin
+    end else if (\$25 ) begin
       nb0 = 8'h80;
     end else begin
-      nb0 = \$25 [7:0];
+      nb0 = \$26 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$27 ) begin
+    if (\$28 ) begin
       nb1 = 8'h7f;
-    end else if (\$29 ) begin
+    end else if (\$30 ) begin
       nb1 = 8'h80;
     end else begin
-      nb1 = \$30 [7:0];
+      nb1 = \$31 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$32 ) begin
+    if (\$33 ) begin
       nb2 = 8'h7f;
-    end else if (\$34 ) begin
+    end else if (\$35 ) begin
       nb2 = 8'h80;
     end else begin
-      nb2 = \$35 [7:0];
+      nb2 = \$36 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$37 ) begin
+    if (\$38 ) begin
       t_0_0 = 8'h7f;
-    end else if (\$39 ) begin
+    end else if (\$40 ) begin
       t_0_0 = 8'h80;
     end else begin
-      t_0_0 = \$40 [7:0];
+      t_0_0 = \$41 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$42 ) begin
+    if (\$43 ) begin
       t_0_1 = 8'h7f;
-    end else if (\$44 ) begin
+    end else if (\$45 ) begin
       t_0_1 = 8'h80;
     end else begin
-      t_0_1 = \$45 [7:0];
+      t_0_1 = \$46 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$47 ) begin
+    if (\$48 ) begin
       t_0_2 = 8'h7f;
-    end else if (\$49 ) begin
+    end else if (\$50 ) begin
       t_0_2 = 8'h80;
     end else begin
-      t_0_2 = \$50 [7:0];
+      t_0_2 = \$51 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$53 ) begin
+    if (\$54 ) begin
       t_1_0 = 8'h7f;
-    end else if (\$55 ) begin
+    end else if (\$56 ) begin
       t_1_0 = 8'h80;
     end else begin
-      t_1_0 = \$56 [7:0];
+      t_1_0 = \$57 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$58 ) begin
+    if (\$59 ) begin
       t_1_1 = 8'h7f;
-    end else if (\$60 ) begin
+    end else if (\$61 ) begin
       t_1_1 = 8'h80;
     end else begin
-      t_1_1 = \$61 [7:0];
+      t_1_1 = \$62 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$63 ) begin
+    if (\$64 ) begin
       t_1_2 = 8'h7f;
-    end else if (\$65 ) begin
+    end else if (\$66 ) begin
       t_1_2 = 8'h80;
     end else begin
-      t_1_2 = \$66 [7:0];
+      t_1_2 = \$67 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$69 ) begin
+    if (\$70 ) begin
       t_2_0 = 8'h7f;
-    end else if (\$71 ) begin
+    end else if (\$72 ) begin
       t_2_0 = 8'h80;
     end else begin
-      t_2_0 = \$72 [7:0];
+      t_2_0 = \$73 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$74 ) begin
+    if (\$75 ) begin
       t_2_1 = 8'h7f;
-    end else if (\$76 ) begin
+    end else if (\$77 ) begin
       t_2_1 = 8'h80;
     end else begin
-      t_2_1 = \$77 [7:0];
+      t_2_1 = \$78 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$79 ) begin
+    if (\$80 ) begin
       t_2_2 = 8'h7f;
-    end else if (\$81 ) begin
+    end else if (\$82 ) begin
       t_2_2 = 8'h80;
     end else begin
-      t_2_2 = \$82 [7:0];
+      t_2_2 = \$83 [7:0];
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$84 ) begin
+    if (\$85 ) begin
       smin01 = sc_1;
     end else begin
       smin01 = sc_0;
@@ -543,7 +519,7 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$85 ) begin
+    if (\$86 ) begin
       smin = sc_2;
     end else begin
       smin = smin01;
@@ -554,13 +530,13 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
     (* full_case = 32'd1 *)
     casez (gamma)
       2'h0:
-          sh_0 = { 3'h0, \$86 [10], \$86  };
+          sh_0 = { 3'h0, \$87 [10], \$87  };
       2'h1:
-          sh_0 = { 1'h0, \$87  };
+          sh_0 = { 1'h0, \$88  };
       2'h2:
-          sh_0 = \$88 ;
+          sh_0 = \$89 ;
       2'h3:
-          sh_0 = \$89 [14:0];
+          sh_0 = \$90 [14:0];
     endcase
   end
   always @* begin
@@ -568,13 +544,13 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
     (* full_case = 32'd1 *)
     casez (gamma)
       2'h0:
-          sh_1 = { 3'h0, \$90 [10], \$90  };
+          sh_1 = { 3'h0, \$91 [10], \$91  };
       2'h1:
-          sh_1 = { 1'h0, \$91  };
+          sh_1 = { 1'h0, \$92  };
       2'h2:
-          sh_1 = \$92 ;
+          sh_1 = \$93 ;
       2'h3:
-          sh_1 = \$93 [14:0];
+          sh_1 = \$94 [14:0];
     endcase
   end
   always @* begin
@@ -582,19 +558,19 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
     (* full_case = 32'd1 *)
     casez (gamma)
       2'h0:
-          sh_2 = { 3'h0, \$94 [10], \$94  };
+          sh_2 = { 3'h0, \$95 [10], \$95  };
       2'h1:
-          sh_2 = { 1'h0, \$95  };
+          sh_2 = { 1'h0, \$96  };
       2'h2:
-          sh_2 = \$96 ;
+          sh_2 = \$97 ;
       2'h3:
-          sh_2 = \$97 [14:0];
+          sh_2 = \$98 [14:0];
     endcase
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$98 ) begin
+    if (\$99 ) begin
       ch01 = 2'h1;
     end else begin
       ch01 = 2'h0;
@@ -603,7 +579,7 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$98 ) begin
+    if (\$99 ) begin
       best01 = sh_1;
     end else begin
       best01 = sh_0;
@@ -612,7 +588,7 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$99 ) begin
+    if (\$100 ) begin
       chosen = 2'h2;
     end else begin
       chosen = ch01;
@@ -621,7 +597,7 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
-    if (\$99 ) begin
+    if (\$100 ) begin
       bestf = sh_2;
     end else begin
       bestf = best01;
@@ -643,19 +619,9 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$100  = belief0;
+    \$101  = belief0;
     if (tick) begin
-      \$100  = nb0;
-    end
-    if (rst) begin
-      \$100  = 8'h00;
-    end
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$101  = belief1;
-    if (tick) begin
-      \$101  = nb1;
+      \$101  = nb0;
     end
     if (rst) begin
       \$101  = 8'h00;
@@ -663,9 +629,9 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$102  = belief2;
+    \$102  = belief1;
     if (tick) begin
-      \$102  = nb2;
+      \$102  = nb1;
     end
     if (rst) begin
       \$102  = 8'h00;
@@ -673,27 +639,39 @@ module active_inference_core(tick, bsel, gamma, csel, clk, rst, action, ready, b
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$103  = action;
+    \$103  = belief2;
     if (tick) begin
-      \$103  = chosen;
+      \$103  = nb2;
     end
     if (rst) begin
-      \$103  = 2'h0;
+      \$103  = 8'h00;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
+    \$104  = action;
+    if (tick) begin
+      \$104  = chosen;
+    end
+    if (rst) begin
+      \$104  = 2'h0;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
     if (tick) begin
-      \$104  = 1'h1;
+      \$105  = 1'h1;
     end else begin
-      \$104  = 1'h0;
+      \$105  = 1'h0;
     end
     if (rst) begin
-      \$104  = 1'h0;
+      \$105  = 1'h0;
     end
   end
-  assign d_0 = { \$86 [10], \$86  };
-  assign d_1 = { \$90 [10], \$90  };
-  assign d_2 = { \$94 [10], \$94  };
+  assign C1 = { \$3 [6], \$3  };
+  assign d_0 = { \$87 [10], \$87  };
+  assign d_1 = { \$91 [10], \$91  };
+  assign d_2 = { \$95 [10], \$95  };
+  assign \$3  = 7'h4c;
 endmodule
