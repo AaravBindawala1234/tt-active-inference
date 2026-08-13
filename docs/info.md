@@ -27,8 +27,13 @@ operations:
 The entire "mind" of the agent is three 8-bit signed registers holding
 log-beliefs, in Q3.5 fixed-point format. The generative model (likelihood,
 transition bias, preferences) is baked into the logic as constants. The whole
-loop is combinational logic committed on one clock edge — no multipliers, no
-memory, microwatt-class.
+loop is fixed-point integer logic — no multipliers, no memory, microwatt-class.
+
+Internally one inference step is sequenced over four clock cycles (perceive →
+plan → sharpen → act), with a register between each stage. This is invisible
+from outside apart from the latency: it exists so the arithmetic path closes
+timing at 25 MHz in the slow process corners, which it did not do when the
+whole loop was resolved in a single cycle.
 
 ## How to test
 
@@ -36,12 +41,15 @@ memory, microwatt-class.
 2. Pulse `rst_n` low then high to reset. All beliefs start at 0 (no idea).
 3. Set the observation on `ui[1:0]`:
    - `00` = sensed LEFT, `01` = sensed CENTER, `10` = sensed RIGHT.
-4. Pulse `ui[2]` (tick) high for one clock to run an inference step.
-5. Read the result:
+4. Pulse `ui[2]` (tick) high for one clock to run an inference step. The step is
+   started by the rising edge, so holding the pin high runs one inference rather
+   than free-running.
+5. Wait for `uo[2]` (ready) to go high — five clocks after the tick. It stays
+   high until the next tick is accepted.
+6. Read the result:
    - `uo[1:0]` = chosen action (0=move LEFT, 1=stay, 2=move RIGHT).
-   - `uo[2]` = ready.
-   - `uio[7:0]` = the LEFT belief value (signed, Q3.5) for debugging — watch it
-     drop as you feed RIGHT observations.
+   - `uio[7:0]` = the belief value selected by `ui[6:5]` (bsel), signed Q3.5 —
+     watch the LEFT belief drop as you feed RIGHT observations.
 
 Feed a run of "sensed LEFT" observations and the agent should commit to moving
 toward its preferred position; flip to "sensed RIGHT" observations and watch the
