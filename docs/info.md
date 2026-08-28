@@ -35,10 +35,10 @@ then act. Two reasons, both measured. Registers between the stages are what let
 the arithmetic path close timing at 25 MHz in the slow process corners, which it
 did not do as one combinational cloud. And scoring the three actions through a
 single shared datapath, one per cycle, costs roughly two thirds less planning
-logic than three parallel scoring cones. Together those cuts took the implied
-die from 178.9 x 189.6 um down to 126.3 x 137.0 um — from about 189% of a 1x1
-tile to about 96% of it. Neither change is visible from outside apart from the
-latency.
+logic than three parallel scoring cones. Measured on sky130, the two cuts took
+the implied die from 178.9 x 189.6 um down to 126.3 x 137.0 um — roughly a 49%
+area reduction, taking the design from about 189% of a 1x1 tile to about 96%.
+Neither change is visible from outside apart from the latency.
 
 An earlier revision carried a 2-bit "precision" (gamma) input intended to tune
 how decisively the agent commits. It was removed because it could not work: it

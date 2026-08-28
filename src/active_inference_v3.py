@@ -41,8 +41,8 @@ AREA / TIMING STRUCTURE:
   v3 computed everything in ONE combinational cloud between `tick` and
   `action`, which did not close at 25 MHz: hardening reported setup violations
   in max_ss_100C_1v60, min_ss_100C_1v60 and nom_ss_100C_1v60. It also hardened
-  to a die of 152.7 x 163.4 um against a 1x1 tile template of 161.0 x 111.52 um
-  — about 139% of the tile.
+  (on sky130) to a die of 152.7 x 163.4 um against a 1x1 tile template of
+  161.0 x 111.52 um — about 139% of the tile.
 
   The agent is tick-driven, so latency is free. Two changes exploit that:
 
