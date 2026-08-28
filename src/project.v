@@ -20,7 +20,7 @@ module tt_um_active_inference (
     // ---- Pin mapping ----
     // ui_in[1:0] : observation (0/1/2)
     // ui_in[2]   : tick
-    // ui_in[4:3] : gamma (precision 0..3)
+    // ui_in[4:3] : unused (was gamma; removed in v3.1 as provably inert)
     // ui_in[6:5] : bsel (belief readout select 0/1/2)
     // ui_in[7]   : csel (goal: 0=seek RIGHT, 1=seek LEFT)
     // uo_out[1:0]: action (0=L,1=stay,2=R)
@@ -36,7 +36,6 @@ module tt_um_active_inference (
         .rst        (~rst_n),
         .obs        (ui_in[1:0]),
         .tick       (ui_in[2]),
-        .gamma      (ui_in[4:3]),
         .bsel       (ui_in[6:5]),
         .csel       (ui_in[7]),
         .action     (action),
@@ -50,5 +49,5 @@ module tt_um_active_inference (
     assign uio_out     = belief_dbg;
     assign uio_oe      = 8'hFF;
 
-    wire _unused = &{ena, uio_in, 1'b0};
+    wire _unused = &{ena, uio_in, ui_in[4:3], 1'b0};
 endmodule

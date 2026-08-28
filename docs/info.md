@@ -29,11 +29,23 @@ log-beliefs, in Q3.5 fixed-point format. The generative model (likelihood,
 transition bias, preferences) is baked into the logic as constants. The whole
 loop is fixed-point integer logic — no multipliers, no memory, microwatt-class.
 
-Internally one inference step is sequenced over four clock cycles (perceive →
-plan → sharpen → act), with a register between each stage. This is invisible
-from outside apart from the latency: it exists so the arithmetic path closes
-timing at 25 MHz in the slow process corners, which it did not do when the
-whole loop was resolved in a single cycle.
+Internally one inference step is sequenced by a small state machine rather than
+resolved in a single clock edge: perceive, then one cycle per candidate action,
+then act. Two reasons, both measured. Registers between the stages are what let
+the arithmetic path close timing at 25 MHz in the slow process corners, which it
+did not do as one combinational cloud. And scoring the three actions through a
+single shared datapath, one per cycle, costs roughly two thirds less planning
+logic than three parallel scoring cones, which is what brings the die back
+within its 1x1 tile budget. Neither is visible from outside apart from the
+latency.
+
+An earlier revision carried a 2-bit "precision" (gamma) input intended to tune
+how decisively the agent commits. It was removed because it could not work: it
+scaled every action score by the same positive constant before a deterministic
+argmax, and that cannot change which score is largest. Precision is real in
+active inference, but it only has an effect when the action is *sampled* from a
+softmax over expected free energy; under an argmax the temperature cancels.
+`ui[4:3]` are consequently unused.
 
 ## How to test
 
@@ -44,7 +56,7 @@ whole loop was resolved in a single cycle.
 4. Pulse `ui[2]` (tick) high for one clock to run an inference step. The step is
    started by the rising edge, so holding the pin high runs one inference rather
    than free-running.
-5. Wait for `uo[2]` (ready) to go high — five clocks after the tick. It stays
+5. Wait for `uo[2]` (ready) to go high — six clocks after the tick. It stays
    high until the next tick is accepted.
 6. Read the result:
    - `uo[1:0]` = chosen action (0=move LEFT, 1=stay, 2=move RIGHT).
