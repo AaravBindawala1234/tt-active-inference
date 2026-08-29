@@ -49,30 +49,32 @@ module active_inference_core(tick, bsel, csel, clk, rst, action, ready, belief_d
   wire [8:0] \$5 ;
   wire \$50 ;
   wire [8:0] \$51 ;
-  wire [8:0] \$52 ;
+  wire \$52 ;
   wire \$53 ;
-  wire \$54 ;
+  wire [8:0] \$54 ;
   wire \$55 ;
   wire \$56 ;
   wire \$57 ;
   wire \$58 ;
   wire \$59 ;
   wire \$6 ;
-  wire [2:0] \$60 ;
+  wire \$60 ;
   wire \$61 ;
-  reg \$62 ;
-  reg [1:0] \$63 ;
+  wire [2:0] \$62 ;
+  wire \$63 ;
   reg \$64 ;
-  reg \$65 ;
-  reg [1:0] \$66 ;
-  reg [7:0] \$67 ;
-  reg [7:0] \$68 ;
+  reg [1:0] \$65 ;
+  reg \$66 ;
+  reg \$67 ;
+  reg [1:0] \$68 ;
   reg [7:0] \$69 ;
   wire [8:0] \$7 ;
-  reg [1:0] \$70 ;
-  reg [9:0] \$71 ;
+  reg [7:0] \$70 ;
+  reg [7:0] \$71 ;
   reg [1:0] \$72 ;
-  reg [1:0] \$73 ;
+  reg [9:0] \$73 ;
+  reg [1:0] \$74 ;
+  reg [1:0] \$75 ;
   wire \$8 ;
   wire [8:0] \$9 ;
   wire [7:0] C0;
@@ -98,10 +100,13 @@ module active_inference_core(tick, bsel, csel, clk, rst, action, ready, belief_d
   reg [7:0] ct0;
   reg [7:0] ct1;
   reg [7:0] ct2;
+  reg [7:0] ecost;
   reg [7:0] ev0;
   reg [7:0] ev1;
   reg [7:0] ev2;
   reg [1:0] fsm_state = 2'h0;
+  reg [7:0] mt01;
+  reg [7:0] mterm;
   reg [7:0] mx01;
   reg [7:0] mxall;
   reg [7:0] nb0;
@@ -124,6 +129,8 @@ module active_inference_core(tick, bsel, csel, clk, rst, action, ready, belief_d
   reg [7:0] upd0;
   reg [7:0] upd1;
   reg [7:0] upd2;
+  assign \$23  = $signed(\$22 ) > $signed(8'h7f);
+  assign \$24  = $signed(upd0) - $signed(mxall);
   assign \$25  = $signed(\$24 ) < $signed(8'h80);
   assign \$26  = $signed(upd0) - $signed(mxall);
   assign \$27  = $signed(upd1) - $signed(mxall);
@@ -151,41 +158,42 @@ module active_inference_core(tick, bsel, csel, clk, rst, action, ready, belief_d
   assign \$49  = $signed(belief2) + $signed(ct2);
   assign \$50  = $signed(\$49 ) < $signed(8'h80);
   assign \$51  = $signed(belief2) + $signed(ct2);
-  assign \$52  = $signed(t0) + $signed(t1);
-  assign sc = $signed(\$52 ) + $signed(t2);
-  assign \$53  = ! fsm_state;
-  assign \$54  = fsm_state == 1'h1;
-  assign \$55  = fsm_state == 2'h2;
-  assign \$56  = fsm_state == 2'h3;
-  assign \$57  = ~ tick_d;
-  assign \$58  = tick & \$57 ;
-  assign \$59  = $signed(sc) > $signed(best_sc);
-  assign \$60  = a_idx + 1'h1;
-  assign \$61  = a_idx == 2'h2;
+  assign \$52  = $signed(t1) > $signed(t0);
+  assign \$53  = $signed(t2) > $signed(mt01);
+  assign \$54  = $signed(mterm) + $signed(ecost);
+  assign \$55  = ! fsm_state;
+  assign \$56  = fsm_state == 1'h1;
+  assign \$57  = fsm_state == 2'h2;
+  assign \$58  = fsm_state == 2'h3;
+  assign \$59  = ~ tick_d;
+  assign \$60  = tick & \$59 ;
+  assign \$61  = $signed(\$54 ) > $signed(best_sc);
+  assign \$62  = a_idx + 1'h1;
+  assign \$63  = a_idx == 2'h2;
   always @(posedge clk)
-    tick_d <= \$62 ;
+    tick_d <= \$64 ;
   always @(posedge clk)
-    obs_r <= \$63 ;
+    obs_r <= \$65 ;
   always @(posedge clk)
-    csel_r <= \$64 ;
+    csel_r <= \$66 ;
   always @(posedge clk)
-    ready <= \$65 ;
+    ready <= \$67 ;
   always @(posedge clk)
-    fsm_state <= \$66 ;
+    fsm_state <= \$68 ;
   always @(posedge clk)
-    belief0 <= \$67 ;
+    belief0 <= \$69 ;
   always @(posedge clk)
-    belief1 <= \$68 ;
+    belief1 <= \$70 ;
   always @(posedge clk)
-    belief2 <= \$69 ;
+    belief2 <= \$71 ;
   always @(posedge clk)
-    a_idx <= \$70 ;
+    a_idx <= \$72 ;
   always @(posedge clk)
-    best_sc <= \$71 ;
+    best_sc <= \$73 ;
   always @(posedge clk)
-    best_a <= \$72 ;
+    best_a <= \$74 ;
   always @(posedge clk)
-    action <= \$73 ;
+    action <= \$75 ;
   assign \$1  = ! csel_r;
   assign C0 = csel_r ? 8'hf5 : 8'hb6;
   assign \$2  = ! csel_r;
@@ -209,8 +217,6 @@ module active_inference_core(tick, bsel, csel, clk, rst, action, ready, belief_d
   assign \$20  = $signed(upd1) > $signed(upd0);
   assign \$21  = $signed(upd2) > $signed(mx01);
   assign \$22  = $signed(upd0) - $signed(mxall);
-  assign \$23  = $signed(\$22 ) > $signed(8'h7f);
-  assign \$24  = $signed(upd0) - $signed(mxall);
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
@@ -415,6 +421,34 @@ module active_inference_core(tick, bsel, csel, clk, rst, action, ready, belief_d
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
     (* full_case = 32'd1 *)
+    if (\$52 ) begin
+      mt01 = t1;
+    end else begin
+      mt01 = t0;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
+    (* full_case = 32'd1 *)
+    if (\$53 ) begin
+      mterm = t2;
+    end else begin
+      mterm = mt01;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
+    (* full_case = 32'd1 *)
+    casez (a_idx)
+      2'h1:
+          ecost = 8'h00;
+      default:
+          ecost = 8'hfc;
+    endcase
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
+    (* full_case = 32'd1 *)
     casez (bsel)
       2'h0:
           belief_dbg = belief0;
@@ -428,113 +462,87 @@ module active_inference_core(tick, bsel, csel, clk, rst, action, ready, belief_d
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$62  = tick;
-    if (rst) begin
-      \$62  = 1'h0;
-    end
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$63  = obs_r;
-    casez (fsm_state)
-      2'h0:
-          if (\$58 ) begin
-            \$63  = obs;
-          end
-    endcase
-    if (rst) begin
-      \$63  = 2'h0;
-    end
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$64  = csel_r;
-    casez (fsm_state)
-      2'h0:
-          if (\$58 ) begin
-            \$64  = csel;
-          end
-    endcase
+    \$64  = tick;
     if (rst) begin
       \$64  = 1'h0;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$65  = ready;
+    \$65  = obs_r;
+    casez (fsm_state)
+      2'h0:
+          if (\$60 ) begin
+            \$65  = obs;
+          end
+    endcase
+    if (rst) begin
+      \$65  = 2'h0;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
+    \$66  = csel_r;
+    casez (fsm_state)
+      2'h0:
+          if (\$60 ) begin
+            \$66  = csel;
+          end
+    endcase
+    if (rst) begin
+      \$66  = 1'h0;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
+    \$67  = ready;
     (* full_case = 32'd1 *)
     casez (fsm_state)
       2'h0:
-          if (\$58 ) begin
-            \$65  = 1'h0;
+          if (\$60 ) begin
+            \$67  = 1'h0;
           end
       2'h1:
           /* empty */;
       2'h2:
           /* empty */;
       2'h3:
-          \$65  = 1'h1;
+          \$67  = 1'h1;
     endcase
     if (rst) begin
-      \$65  = 1'h0;
+      \$67  = 1'h0;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$66  = fsm_state;
+    \$68  = fsm_state;
     (* full_case = 32'd1 *)
     casez (fsm_state)
       2'h0:
-          if (\$58 ) begin
-            \$66  = 2'h1;
+          if (\$60 ) begin
+            \$68  = 2'h1;
           end
       2'h1:
-          \$66  = 2'h2;
+          \$68  = 2'h2;
       2'h2:
-          if (\$61 ) begin
-            \$66  = 2'h3;
+          if (\$63 ) begin
+            \$68  = 2'h3;
           end
       2'h3:
-          \$66  = 2'h0;
+          \$68  = 2'h0;
     endcase
     if (rst) begin
-      \$66  = 2'h0;
+      \$68  = 2'h0;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$67  = belief0;
+    \$69  = belief0;
     casez (fsm_state)
       2'h0:
           /* empty */;
       2'h1:
-          \$67  = nb0;
-    endcase
-    if (rst) begin
-      \$67  = 8'h00;
-    end
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$68  = belief1;
-    casez (fsm_state)
-      2'h0:
-          /* empty */;
-      2'h1:
-          \$68  = nb1;
-    endcase
-    if (rst) begin
-      \$68  = 8'h00;
-    end
-  end
-  always @* begin
-    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$69  = belief2;
-    casez (fsm_state)
-      2'h0:
-          /* empty */;
-      2'h1:
-          \$69  = nb2;
+          \$69  = nb0;
     endcase
     if (rst) begin
       \$69  = 8'h00;
@@ -542,48 +550,40 @@ module active_inference_core(tick, bsel, csel, clk, rst, action, ready, belief_d
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$70  = a_idx;
+    \$70  = belief1;
     casez (fsm_state)
       2'h0:
           /* empty */;
       2'h1:
-          \$70  = 2'h0;
-      2'h2:
-          \$70  = \$60 [1:0];
+          \$70  = nb1;
     endcase
     if (rst) begin
-      \$70  = 2'h0;
+      \$70  = 8'h00;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$71  = best_sc;
+    \$71  = belief2;
     casez (fsm_state)
       2'h0:
           /* empty */;
       2'h1:
-          \$71  = 10'h200;
-      2'h2:
-          if (\$59 ) begin
-            \$71  = sc;
-          end
+          \$71  = nb2;
     endcase
     if (rst) begin
-      \$71  = 10'h000;
+      \$71  = 8'h00;
     end
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$72  = best_a;
+    \$72  = a_idx;
     casez (fsm_state)
       2'h0:
           /* empty */;
       2'h1:
           \$72  = 2'h0;
       2'h2:
-          if (\$59 ) begin
-            \$72  = a_idx;
-          end
+          \$72  = \$62 [1:0];
     endcase
     if (rst) begin
       \$72  = 2'h0;
@@ -591,7 +591,41 @@ module active_inference_core(tick, bsel, csel, clk, rst, action, ready, belief_d
   end
   always @* begin
     if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
-    \$73  = action;
+    \$73  = best_sc;
+    casez (fsm_state)
+      2'h0:
+          /* empty */;
+      2'h1:
+          \$73  = 10'h200;
+      2'h2:
+          if (\$61 ) begin
+            \$73  = { \$54 [8], \$54  };
+          end
+    endcase
+    if (rst) begin
+      \$73  = 10'h000;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
+    \$74  = best_a;
+    casez (fsm_state)
+      2'h0:
+          /* empty */;
+      2'h1:
+          \$74  = 2'h0;
+      2'h2:
+          if (\$61 ) begin
+            \$74  = a_idx;
+          end
+    endcase
+    if (rst) begin
+      \$74  = 2'h0;
+    end
+  end
+  always @* begin
+    if (\$auto$verilog_backend.cc:2355:dump_module$1 ) begin end
+    \$75  = action;
     (* full_case = 32'd1 *)
     casez (fsm_state)
       2'h0:
@@ -601,12 +635,13 @@ module active_inference_core(tick, bsel, csel, clk, rst, action, ready, belief_d
       2'h2:
           /* empty */;
       2'h3:
-          \$73  = best_a;
+          \$75  = best_a;
     endcase
     if (rst) begin
-      \$73  = 2'h0;
+      \$75  = 2'h0;
     end
   end
   assign C1 = { \$3 [6], \$3  };
+  assign sc = { \$54 [8], \$54  };
   assign \$3  = 7'h4c;
 endmodule

@@ -149,8 +149,45 @@ class ActiveInferenceChipV3(wiring.Component):
                     m.d.comb += ct[s].eq(C[s])
 
         terms = [clamp_s8(m, f"t{s}", belief[s] + ct[s]) for s in range(N)]
+
+        # Combine the per-state terms with MAX, not SUM. This is load-bearing.
+        # Summing gives  sum_s belief[s] + sum_s C[tgt(s,a)]  — and the first
+        # half does not depend on the action, so it is a constant offset added
+        # to every score and CANCELS in the argmax. A summing version is a pure
+        # function of csel: it picks the same action no matter what it believes.
+        # (Measured: with SUM, seek-LEFT chose 'move L' in 15309 of 15309
+        # decisions across every reachable belief state; only 8-bit saturation
+        # ever perturbed it.)
+        #
+        # The root cause is that expected free energy's pragmatic term is an
+        # EXPECTATION, sum_s P(s)*C[...], in which the probability MULTIPLIES
+        # the preference. In the log domain we add, so adding log-belief to
+        # log-preference and summing computes a product of probabilities, and
+        # the belief factors out. Taking the max instead keeps the belief in the
+        # decision: max does not distribute over the sum, so a state only
+        # contributes if it is BOTH believed and desirable. This is the
+        # max-product / most-probable-explanation approximation, and it is also
+        # cheaper — two 8-bit comparators instead of a 3-input adder.
+        mt01 = Signal(signed(8))
+        with m.If(terms[1] > terms[0]): m.d.comb += mt01.eq(terms[1])
+        with m.Else():                  m.d.comb += mt01.eq(terms[0])
+        mterm = Signal(signed(8))
+        with m.If(terms[2] > mt01):     m.d.comb += mterm.eq(terms[2])
+        with m.Else():                  m.d.comb += mterm.eq(mt01)
+
+        # Action prior E: moving costs a little, staying is free. Without it,
+        # "move toward the goal" ties with "stay" once the agent has arrived
+        # (the target index clamps at the wall, so both map to the same state)
+        # and the argmax tie-break would make a satisfied agent pace forever.
+        # MOVE_COST is in the same Q3.5 units as everything else: 4/32 nats.
+        MOVE_COST = 4
+        ecost = Signal(signed(8))
+        with m.Switch(a_idx):
+            with m.Case(1):   m.d.comb += ecost.eq(0)             # stay
+            with m.Default(): m.d.comb += ecost.eq(-MOVE_COST)    # move L or R
+
         sc = Signal(signed(10))
-        m.d.comb += sc.eq(terms[0] + terms[1] + terms[2])
+        m.d.comb += sc.eq(mterm + ecost)
 
         # ===== FULL BELIEF READOUT =====
         with m.Switch(self.bsel):

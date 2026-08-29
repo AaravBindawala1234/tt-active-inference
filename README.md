@@ -31,8 +31,12 @@ so the chip never needs a hardware multiplier. Each tick it runs:
 
 1. **Perceive** — Bayesian belief update from the observation, then re-normalise
    by subtracting the maximum.
-2. **Plan** — score each of the three candidate moves by the pragmatic term of
-   expected free energy: `score(a) = sum_s belief[s] + C[target(s, a)]`.
+2. **Plan** — score each candidate move against belief and preference together:
+   `score(a) = max_s [belief[s] + C[target(s,a)]] + E[a]`. The combination over
+   states is a **max**, not a sum: summing would let `sum_s belief[s]` factor out
+   as an action-independent constant and cancel in the argmax, leaving a chip
+   that ignores its own beliefs. See [docs/info.md](docs/info.md) for the full
+   argument.
 3. **Act** — drive the highest-scoring move onto the output pins.
 
 The three action scores are evaluated one per cycle through a single shared
@@ -44,8 +48,17 @@ lets the design close timing at 25 MHz in the slow corners *and* fit a 1x1 tile.
 The headline demonstration is `ui[7]` (`csel`), which selects between two baked
 preference vectors. Feed the chip the **same** observation with `csel` flipped
 and it takes the **opposite** action — identical evidence, identical beliefs,
-opposite behaviour, because only the goal changed. That is the active inference
-claim made physical.
+opposite behaviour, because only the goal changed.
+
+The converse holds too, and matters just as much: with the goal held fixed,
+*different beliefs produce different actions*. Convince the agent it is already
+at its goal and it stays put; convince it otherwise and it moves.
+
+| belief | seek RIGHT | seek LEFT |
+|---|---|---|
+| confident LEFT   | move RIGHT | **stay** |
+| confident CENTER | move RIGHT | move LEFT |
+| confident RIGHT  | **stay**   | move LEFT |
 
 ## Pinout
 

@@ -19,19 +19,50 @@ that inference. Each tick it runs three operations:
    belief values are then re-normalised by subtracting their maximum.
 
 2. **Plan.** For each of the three possible moves (shift LEFT, stay, shift
-   RIGHT) it computes an expected-free-energy score: for every position it might
-   currently be at, weighted by how strongly it believes it is there, how much
-   would it like the position that move would lead to?  In symbols,
-   `score(a) = sum_s belief[s] + C[target(s, a)]`, where `C` is the preference
-   vector. This is the **pragmatic** (goal-seeking) term of expected free energy
-   only. The epistemic, information-seeking term is deliberately not
-   implemented: in a 3-state world with a fixed observation model there is
-   little ambiguity for an exploratory action to resolve, and the term would
-   have cost silicon for no change in behaviour. So "EFE" here is doing less
-   than the full textbook quantity, and the agent is purely goal-directed.
+   RIGHT) it scores how good that move looks given what it believes:
+
+   ```
+   score(a) = max_s [ belief[s] + C[target(s, a)] ] + E[a]
+   ```
+
+   `C` is the preference vector (log-preference over positions) and `E` is a
+   small action prior that makes moving slightly costlier than staying. The
+   score is highest when there is a position the agent both *believes it is at*
+   and *would be glad to move from* — so belief and preference must agree for an
+   action to win.
+
+   Two honest notes on the mathematics. First, this is the **pragmatic**
+   (goal-seeking) term of expected free energy only; the epistemic,
+   information-seeking term is not implemented, because in a 3-state world with
+   a fixed observation model there is little ambiguity for an exploratory action
+   to resolve. Second, the combination over states is a **max**, not the sum an
+   expectation would use. That is deliberate and necessary. A true expectation
+   multiplies probability by preference, but this design works in the log domain
+   where multiplication becomes addition — and `sum_s (belief[s] + C[...])`
+   splits into `sum_s belief[s] + sum_s C[...]`, whose first half does not
+   depend on the action and therefore cancels in the argmax. A summing version
+   ignores its own beliefs entirely and reduces to a fixed function of the goal
+   pin. Taking the max keeps the belief in the decision (max does not distribute
+   over the sum) and is the standard max-product / most-probable-explanation
+   approximation. It is also cheaper in gates.
 
 3. **Act.** It selects the move with the best score and drives it on the output
    pins, then latches the updated belief.
+
+The result is the behaviour you would want from such an agent: once it is
+confident about where it is, it moves toward the position it prefers, and once
+it believes it has arrived, it stays.
+
+| belief | seek RIGHT | seek LEFT |
+|---|---|---|
+| confident LEFT   | move RIGHT | **stay** |
+| confident CENTER | move RIGHT | move LEFT |
+| confident RIGHT  | **stay**   | move LEFT |
+
+One simplification worth stating plainly: the belief is updated by observation
+only. It is not propagated through the transition model after the agent acts,
+so the chip does not track the consequences of its own movement — the
+environment is expected to report the new position on the next observation.
 
 The entire "mind" of the agent is three 8-bit signed registers holding
 log-beliefs, in Q3.5 fixed-point format. The generative model — the observation
