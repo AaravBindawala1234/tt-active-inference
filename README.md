@@ -1,42 +1,91 @@
 ![](../../workflows/gds/badge.svg) ![](../../workflows/docs/badge.svg) ![](../../workflows/test/badge.svg) ![](../../workflows/fpga/badge.svg)
 
-# Tiny Tapeout Verilog Project Template
+# Active Inference Agent — a Bayesian agent in silicon
 
-- [Read the documentation for project](docs/info.md)
+A [Tiny Tapeout](https://tinytapeout.com) project: a complete **active inference
+agent** implemented as fixed-function digital logic in a single 1x1 tile, taped
+out on the IHP SG13G2 open PDK.
 
-## What is Tiny Tapeout?
+- [Read the full documentation](docs/info.md)
 
-Tiny Tapeout is an educational project that aims to make it easier and cheaper than ever to get your digital and analog designs manufactured on a real chip.
+## What it does
 
-To learn more and get started, visit https://tinytapeout.com.
+Active inference is a framework from computational neuroscience in which an
+agent maintains beliefs about the world and acts to bring about the states it
+prefers. This chip implements that whole loop — perception and action — in
+integer arithmetic, with no processor, no memory and no multipliers.
 
-## Set up your Verilog project
+The agent lives on a 3-position line. Its sensor is unreliable (an observation
+matches the true position only 80% of the time), so it must infer where it is
+from noisy evidence, then choose a move that takes it toward the position it
+prefers.
 
-1. Add your Verilog files to the `src` folder.
-2. Edit the [info.yaml](info.yaml) and update information about your project, paying special attention to the `source_files` and `top_module` properties. If you are upgrading an existing Tiny Tapeout project, check out our [online info.yaml migration tool](https://tinytapeout.github.io/tt-yaml-upgrade-tool/).
-3. Edit [docs/info.md](docs/info.md) and add a description of your project.
-4. Adapt the testbench to your design. See [test/README.md](test/README.md) for more information.
+Its entire mind is **three 8-bit signed registers** holding log-probabilities in
+Q3.5 fixed point. Working in the log domain turns Bayes' rule into addition:
 
-The GitHub action will automatically build the ASIC files using [LibreLane](https://www.zerotoasiccourse.com/terminology/librelane/).
+```
+belief[state] += log P(observation | state)
+```
 
-## Enable GitHub actions to build the results page
+so the chip never needs a hardware multiplier. Each tick it runs:
 
-- [Enabling GitHub Pages](https://tinytapeout.com/faq/#my-github-action-is-failing-on-the-pages-part)
+1. **Perceive** — Bayesian belief update from the observation, then re-normalise
+   by subtracting the maximum.
+2. **Plan** — score each of the three candidate moves by the pragmatic term of
+   expected free energy: `score(a) = sum_s belief[s] + C[target(s, a)]`.
+3. **Act** — drive the highest-scoring move onto the output pins.
+
+The three action scores are evaluated one per cycle through a single shared
+datapath, so an inference step takes six clocks rather than one. That is what
+lets the design close timing at 25 MHz in the slow corners *and* fit a 1x1 tile.
+
+## Runtime-switchable goal
+
+The headline demonstration is `ui[7]` (`csel`), which selects between two baked
+preference vectors. Feed the chip the **same** observation with `csel` flipped
+and it takes the **opposite** action — identical evidence, identical beliefs,
+opposite behaviour, because only the goal changed. That is the active inference
+claim made physical.
+
+## Pinout
+
+| pin | function |
+|---|---|
+| `ui[1:0]` | observation (0 = LEFT, 1 = CENTER, 2 = RIGHT) |
+| `ui[2]` | tick — rising edge runs one inference step |
+| `ui[4:3]` | unused |
+| `ui[6:5]` | `bsel` — which belief to show on the debug bus |
+| `ui[7]` | `csel` — goal (0 = seek RIGHT, 1 = seek LEFT) |
+| `uo[1:0]` | chosen action (0 = move LEFT, 1 = stay, 2 = move RIGHT) |
+| `uo[2]` | ready — decision valid, 6 clocks after the tick |
+| `uio[7:0]` | selected belief value, signed Q3.5 |
+
+## Source
+
+The RTL is generated from [Amaranth HDL](https://amaranth-lang.org):
+[`src/active_inference_v3.py`](src/active_inference_v3.py) is the design;
+[`src/active_inference_core.v`](src/active_inference_core.v) is its generated
+Verilog, and [`src/project.v`](src/project.v) is the Tiny Tapeout wrapper.
+Regenerate with:
+
+```
+python3 src/active_inference_v3.py
+```
+
+## Testing
+
+```
+cd test && make
+```
+
+Runs three cocotb testbenches: the goal-switching demonstration, eight golden
+multi-step traces checked against a fixed-point reference model (actions and
+final beliefs), and a check that `tick` is edge-triggered rather than
+level-sensitive. The same tests are re-run by CI against the post-layout
+gate-level netlist with real cell delays.
 
 ## Resources
 
-- [FAQ](https://tinytapeout.com/faq/)
+- [Tiny Tapeout FAQ](https://tinytapeout.com/faq/)
 - [Digital design lessons](https://tinytapeout.com/digital_design/)
-- [Learn how semiconductors work](https://tinytapeout.com/siliwiz/)
 - [Join the community](https://tinytapeout.com/discord)
-- [Build your design locally](https://www.tinytapeout.com/guides/local-hardening/)
-
-## What next?
-
-- [Submit your design to the next shuttle](https://app.tinytapeout.com/).
-- Edit [this README](README.md) and explain your design, how it works, and how to test it.
-- Share your project on your social network of choice:
-  - LinkedIn [#tinytapeout](https://www.linkedin.com/search/results/content/?keywords=%23tinytapeout) [@TinyTapeout](https://www.linkedin.com/company/100708654/)
-  - Mastodon [#tinytapeout](https://chaos.social/tags/tinytapeout) [@matthewvenn](https://chaos.social/@matthewvenn)
-  - X (formerly Twitter) [#tinytapeout](https://twitter.com/hashtag/tinytapeout) [@tinytapeout](https://twitter.com/tinytapeout)
-  - Bluesky [@tinytapeout.com](https://bsky.app/profile/tinytapeout.com)

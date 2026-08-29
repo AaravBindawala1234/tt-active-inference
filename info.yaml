@@ -1,9 +1,9 @@
 project:
-  title:        "Active Inference Agent v3"
+  title:        "Active Inference Agent"
   author:       "Aarav"
   discord:      ""
   description:  "A 3-state active inference agent: Bayesian belief update + expected-free-energy planning, in 8-bit log-domain fixed point. Adds a runtime-switchable goal and full belief readout."
-  language:     "Verilog"
+  language:     "Amaranth"
   clock_hz:     25000000
   tiles:        "1x1"
   top_module:   "tt_um_active_inference"
@@ -15,8 +15,8 @@ pinout:
   ui[0]: "observation bit 0"
   ui[1]: "observation bit 1"
   ui[2]: "tick (pulse to run one inference step)"
-  ui[3]: ""
-  ui[4]: ""
+  ui[3]: "unused"
+  ui[4]: "unused"
   ui[5]: "bsel bit 0 (belief readout select)"
   ui[6]: "bsel bit 1"
   ui[7]: "csel (goal select: 0=seek RIGHT, 1=seek LEFT)"
