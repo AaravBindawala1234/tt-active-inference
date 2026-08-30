@@ -215,8 +215,9 @@ class ActiveInferenceChipV3(wiring.Component):
             with m.State("PERCEIVE"):
                 for s in range(N):
                     m.d.sync += belief[s].eq(nb[s])
-                # Below every reachable score: three clamped s8 terms sum to
-                # at least -384, so -512 can never win the argmax.
+                # Seed the running argmax below every reachable score. A score
+                # is one clamped s8 term (>= -128) minus MOVE_COST, so it never
+                # goes below -132; -512 can therefore never win.
                 m.d.sync += [a_idx.eq(0), best_sc.eq(-512), best_a.eq(0)]
                 m.next = "PLAN"
             with m.State("PLAN"):
